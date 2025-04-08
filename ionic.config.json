@@ -1,0 +1,7 @@
+{
+  "name": "PMS-A3",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
