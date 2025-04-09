@@ -1,17 +1,48 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Add New Record</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <form #itemForm="ngForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="stacked">Name (required)</ion-label>
+      <ion-input 
+        type="text" 
+        name="name" 
+        [(ngModel)]="newItem.name" 
+        required
+      ></ion-input>
+    </ion-item>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+    <ion-item>
+      <ion-label position="stacked">categorization</ion-label>
+      <ion-select 
+        name="category" 
+        [(ngModel)]="newItem.category" 
+        required
+      >
+        <ion-select-option value="Electronics">electronic product</ion-select-option>
+        <ion-select-option value="Furniture">furniture</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>Set as a featured item</ion-label>
+      <ion-toggle 
+        name="featuredItem" 
+        [(ngModel)]="newItem.featuredItem"
+      ></ion-toggle>
+    </ion-item>
+
+    <ion-button 
+      type="submit" 
+      expand="block" 
+      [disabled]="!itemForm.valid"
+    >
+      add
+    </ion-button>
+  </form>
 </ion-content>
