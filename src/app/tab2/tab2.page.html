@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add New Record</ion-title>
+    <ion-title>Add New Record & Featured Items</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form #itemForm="ngForm" (ngSubmit)="onSubmit()">
     <ion-item>
-      <ion-label position="stacked">Name (required)</ion-label>
+      <ion-label position="stacked">Name (Required)</ion-label>
       <ion-input 
         type="text" 
         name="name" 
@@ -17,20 +17,31 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">categorization</ion-label>
+      <ion-label position="stacked">Category</ion-label>
       <ion-select 
         name="category" 
         [(ngModel)]="newItem.category" 
         required
       >
-        <ion-select-option value="Electronics">electronic product</ion-select-option>
-        <ion-select-option value="Furniture">furniture</ion-select-option>
+        <ion-select-option value="Electronics">Electronics</ion-select-option>
+        <ion-select-option value="Furniture">Furniture</ion-select-option>
+        <ion-select-option value="Clothing">Clothing</ion-select-option>
+        <ion-select-option value="Tools">Tools</ion-select-option>
       </ion-select>
     </ion-item>
 
+    <ion-item>
+      <ion-label position="stacked">Quantity (Required)</ion-label>
+      <ion-input 
+        type="number" 
+        name="quantity" 
+        [(ngModel)]="newItem.quantity" 
+        required
+      ></ion-input>
+    </ion-item>
 
     <ion-item>
-      <ion-label>Set as a featured item</ion-label>
+      <ion-label>Set as Featured Item</ion-label>
       <ion-toggle 
         name="featuredItem" 
         [(ngModel)]="newItem.featuredItem"
@@ -42,7 +53,18 @@
       expand="block" 
       [disabled]="!itemForm.valid"
     >
-      add
+      Add
     </ion-button>
   </form>
+
+  <ion-list *ngIf="featuredItems.length > 0">
+    <ion-list-header>Current Featured Items</ion-list-header>
+    <ion-item *ngFor="let item of featuredItems">
+      <ion-label>
+        <h2>{{ item.name }}</h2>
+        <p>Category: {{ item.category }}</p>
+        <p>Quantity: {{ item.quantity }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
