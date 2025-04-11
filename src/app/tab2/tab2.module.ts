@@ -3,18 +3,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Tab2Page } from './tab2.page';
-import { Tab2RoutingModule } from './tab2-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    Tab2RoutingModule,
-    Tab2Page 
+    IonicModule
   ],
+  declarations: [Tab2Page]  // 移除这行
 })
 export class Tab2PageModule {}
+
+
 
 
 
