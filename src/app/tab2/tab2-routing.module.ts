@@ -5,7 +5,7 @@ import { Tab2Page } from './tab2.page';
 const routes: Routes = [
   {
     path: '',
-    component: Tab2Page
+    component: Tab2Page 
   }
 ];
 
@@ -14,4 +14,13 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class Tab2RoutingModule {}
+
+
+
+
+
+
+
+
+
 

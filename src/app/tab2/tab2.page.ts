@@ -1,42 +1,46 @@
 import { Component } from '@angular/core';
-import { DataService } from './data.service';
-import {IonicModule, ToastController} from '@ionic/angular';
-import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import { IonicModule } from '@ionic/angular'; 
+import { FormsModule } from '@angular/forms'; 
+
+interface Item {
+  name: string;
+  category: string;
+  quantity: number | null;
+  featuredItem: boolean;
+}
 
 @Component({
   selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss'],
-  imports: [CommonModule, FormsModule, IonicModule]
+  templateUrl: './tab2.page.html',
+  styleUrls: ['./tab2.page.scss'],
+  standalone: true, 
+  imports: [IonicModule, FormsModule], 
 })
 export class Tab2Page {
-  newItem: any = {
-    featuredItem: 0 // Default to not featured
+  newItem: Item = {
+    name: '',
+    category: '',
+    quantity: null,
+    featuredItem: false
   };
-  featuredItems: any[] = [];
 
-  constructor(private dataService: DataService, private toastCtrl: ToastController) {
-    // Load featured items on initialization
-    this.updateFeaturedList();
-  }
+  featuredItems: Item[] = []; 
 
-  // Submit form
-  async onSubmit() {
-    this.dataService.addItem(this.newItem);
-    const toast = await this.toastCtrl.create({
-      message: 'Record added successfully!',
-      duration: 2000
-    });
-    toast.present();
+  constructor() {}
 
-    this.newItem = { featuredItem: 0 }; // Clear form
-    this.updateFeaturedList(); // Update list
-  }
+  onSubmit() {
+    if (this.newItem.featuredItem) {
+      this.featuredItems.push({ ...this.newItem });
+    }
 
-  // Update featured items list
-  updateFeaturedList() {
-    this.featuredItems = this.dataService.getFeaturedItems();
+    this.newItem = {
+      name: '',
+      category: '',
+      quantity: null,
+      featuredItem: false
+    };
   }
 }
+
+
 
