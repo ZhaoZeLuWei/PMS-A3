@@ -12,6 +12,7 @@
       <ion-title size="large">Tab 3</ion-title>
     </ion-toolbar>
   </ion-header>
-
+  <ion-button [routerLink]= "['/name',params]">Go {{params.name}} Page</ion-button>
   <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-button (click)="doActionSheet()">Do Action Sheet</ion-button>
 </ion-content>
