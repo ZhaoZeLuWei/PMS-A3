@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {ActionSheetController} from "@ionic/angular";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertController} from "@ionic/angular";
+import {Observable} from "rxjs";
 
 interface Params {
   id: number;
@@ -18,6 +19,9 @@ interface Params {
 export class Tab3Page {
   inputform: FormGroup;
   params: Params;
+  inputCategory: string = "";
+  inputNote: string | null = "";
+  showNote: boolean = false;
 
   constructor(private router:Router, private actionSheetCtrl: ActionSheetController,
               private fb: FormBuilder, private ac:AlertController) {
