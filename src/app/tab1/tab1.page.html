@@ -14,17 +14,19 @@
   </ion-header>
 
   <ion-searchbar
-    [(ngModel)]="searchTerm" >// 绑定搜索关键词
-    (ionChange)="filterItems()" // 搜索关键词变化时调用 filterItems 方法
-    showCancelButton="always" // 始终显示取消按钮
-    placeholder="Search by item name..." // 搜索框占位符
-    class="search-bar"
-  ></ion-searchbar>
+    [(ngModel)]="searchTerm"
+    (ionChange)="filterItems()"
+    showCancelButton="always"
+    placeholder="Search by item name..."
+    class="search-bar">
+  </ion-searchbar>
 
-  <ion-card *ngIf="showDetails"> <!-- 如果显示详细信息则显示卡片 -->
+  <h2>Search Results:</h2>
+  <!-- 新增搜索结果展示区 -->
+  <ion-card *ngIf="showDetails">
     <ion-card-content>
       <ion-textarea
-        [value]="selectedItemDetails" >// 绑定选中商品的详细信息
+        [value]="selectedItemDetails"
         readonly
         autoGrow
         rows="12"
@@ -55,7 +57,7 @@
               <p>Price: {{ item.price }}</p> <!-- 价格 -->
               <p>Stock Status: {{ item.stock_status }}</p> <!-- 库存状态 -->
               <p>Featured: {{ item.featured_item === 1 ? 'Yes' : 'No' }}</p> <!-- 是否推荐 -->
-              <p>Notes: {{ String(item.special_note) || 'N/A' }}</p> <!-- 备注 -->
+              <p>Notes: {{item.special_note || 'N/A' }}</p> <!-- 备注 -->
             </ion-label>
           </ion-col>
         </ion-row>
