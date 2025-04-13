@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular'; 
-import { FormsModule } from '@angular/forms'; 
+import { IonHeader, IonItem, IonContent, IonToolbar, IonTitle, IonLabel } from "@ionic/angular/standalone";
 
 interface Item {
   name: string;
@@ -13,8 +12,6 @@ interface Item {
   selector: 'app-tab2',
   templateUrl: './tab2.page.html',
   styleUrls: ['./tab2.page.scss'],
-  standalone: true, 
-  imports: [IonicModule, FormsModule], 
 })
 export class Tab2Page {
   newItem: Item = {
@@ -24,9 +21,15 @@ export class Tab2Page {
     featuredItem: false
   };
 
-  featuredItems: Item[] = []; 
+  featuredItems: Item[] = [
+    { name: 'Artwork 1', category: 'Painting', quantity: 10, featuredItem: true },
+    { name: 'Artwork 2', category: 'Sculpture', quantity: 5, featuredItem: true }
+  ];
 
-  constructor() {}
+  allItems: Item[] = [
+    { name: 'Artwork 3', category: 'Photography', quantity: 8, featuredItem: false },
+    { name: 'Artwork 4', category: 'Digital Art', quantity: 12, featuredItem: false }
+  ];
 
   onSubmit() {
     if (this.newItem.featuredItem) {
