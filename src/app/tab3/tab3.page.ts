@@ -19,9 +19,8 @@ interface Params {
 export class Tab3Page {
   inputform: FormGroup;
   params: Params;
-  inputCategory: string = "";
-  inputNote: string | null = "";
-  showNote: boolean = false;
+  searchSuccess: boolean = false;
+  deleteSuccess: boolean = true;
 
   constructor(private router:Router, private actionSheetCtrl: ActionSheetController,
               private fb: FormBuilder, private ac:AlertController) {
@@ -38,12 +37,16 @@ export class Tab3Page {
         message:"Please enter a valid name",
         buttons: ["OK"],
       }).then( alert => alert.present());
+      this.searchSuccess = false;
       return;
+    }
+    if (this.inputform.get('itemName')?.value) {
+      this.searchSuccess = true;
     }
   }
 
   //this is an action sheet for delete, to make a confirmation
-  async doActionSheet() {
+  async deleteActionSheet() {
     let actionSheet = await this.actionSheetCtrl.create({
       header: 'Deletion confirmation',
       buttons: [
@@ -52,6 +55,8 @@ export class Tab3Page {
           role: 'destructive',
           handler: () => {
             console.log('Think clicked');
+            this.deleteSuccess = false;
+            console.log(this.deleteSuccess)
           }
         },{
           text: 'Cancel',
@@ -64,7 +69,6 @@ export class Tab3Page {
     });
     await actionSheet.present();
   }
-
 
 }
 

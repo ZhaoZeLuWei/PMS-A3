@@ -9,45 +9,25 @@
 <ion-content [fullscreen]="true">
   <ion-item>
     <form [formGroup]="inputform">
-    <ion-input label="Item Name" labelPlacement="floating" placeholder="Enter text"></ion-input>
-    <ion-button (click)="onSubmit()">Go</ion-button>
+    <ion-input label="Item Name" labelPlacement="floating" placeholder="Enter text" formControlName="itemName"></ion-input>
+    <ion-button (click)="onSubmit()">Search</ion-button>
     </form>
+  </ion-item >
+  <ion-item *ngIf="deleteSuccess">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h5>Search Result:</h5>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="searchSuccess">
+        <ion-col>
+          <ion-button (click)="deleteActionSheet()">Delete</ion-button>
+          <ion-button [routerLink]="['/name', params]">Edit</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-item>
-  <div>
-    <ion-button (click)="doActionSheet()">Delete</ion-button>
-    <ion-button [routerLink]= "['/name',params]">Edit</ion-button>
-  </div>
 </ion-content>
-<br />
-<ion-list>
-  <ion-item>
-    <ion-input
-      label="Input with clear button"
-      labelPlacement="stacked"
-      [clearInput]="true"
-      placeholder="Enter text to see clear button"
-      value="Default value"
-    >
-    </ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-select placeholder="Select a Fruit" [(ngModel)]="inputCategory">
-      <div slot="label">Category <ion-text color="danger" *ngIf="!inputCategory">(Required)</ion-text></div>
-      <ion-select-option value="Electronics">Electronics</ion-select-option>
-      <ion-select-option value="Furniture">Furniture</ion-select-option>
-      <ion-select-option value="Clothing">Clothing</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-toggle [enableOnOffLabels]="true" [(ngModel)]="showNote">Special Note (Optional)</ion-toggle>
-  </ion-item>
-  <ion-item *ngIf=showNote>
-    <ion-input
-      labelPlacement="stacked"
-      [clearInput]="true"
-      placeholder="Enter the item special note here"
-    >
-    </ion-input>
-  </ion-item>
-</ion-list>
+
 
