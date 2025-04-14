@@ -9,7 +9,8 @@
 <ion-content [fullscreen]="true">
   <ion-item>
     <form [formGroup]="inputform">
-    <ion-input label="Item Name" labelPlacement="floating" placeholder="Enter text" formControlName="itemName"></ion-input>
+    <ion-input label="Item Name" labelPlacement="floating" placeholder="Enter text" formControlName="itemName"
+    (input)="onSearch()"></ion-input>
     <ion-button (click)="onSubmit()">Search</ion-button>
     </form>
   </ion-item >
