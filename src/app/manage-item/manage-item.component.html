@@ -1,10 +1,14 @@
  <ion-grid>
     <ion-row>
       <ion-col>
-        <h5>{{ item.name }}</h5>
+        <h5>{{item.id }} : {{ item.name }}</h5>
         <p>Category: {{ item.category }}</p>
         <p>Quantity: {{ item.quantity }}</p>
         <p>Price: {{ item.price }}</p>
+        <p>Supplier Name: {{item.supplierName}}</p>
+        <p>Stock Status: {{item.stockStatus}}</p>
+        <p>Featured Item: <span [innerHTML]="item.featuredItem ? '✅' : '❌'"></span></p>
+        <p>Special Note: {{item?.specialNote}}</p>
       </ion-col>
     </ion-row>
     <ion-row>
