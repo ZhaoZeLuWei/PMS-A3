@@ -5,11 +5,10 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-item>
-    <form [formGroup]="inputform">
-    <ion-input label="Item Name" labelPlacement="floating" placeholder="Enter text" formControlName="itemName"
+  <ion-item class="input-wrapper">
+    <form [formGroup]="inputform" class="form-inline">
+    <ion-input fill="outline" label="Item Name" labelPlacement="floating" placeholder="Enter text" formControlName="itemName"
     ></ion-input>
     <ion-button (click)="onSubmit()">Search</ion-button>
     </form>

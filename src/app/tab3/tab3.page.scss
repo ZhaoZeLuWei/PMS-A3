@@ -1,0 +1,19 @@
+.input-wrapper {
+  margin-top: 16px;
+  padding-top: 5px; // 给 label 上面一点 breathing space
+}
+
+.form-inline {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  width: 100%;
+
+  ion-input {
+    flex: 1;
+  }
+
+  ion-button {
+    height: 50px; // 跟 input 高度保持一致
+  }
+}
