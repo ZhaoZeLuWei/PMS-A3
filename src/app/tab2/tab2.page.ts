@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonItem, IonContent, IonToolbar, IonTitle, IonLabel } from "@ionic/angular/standalone";
+import { IonHeader, IonItem, IonContent, IonToolbar, IonTitle, IonLabel, IonToggle, IonInput, IonButton } from "@ionic/angular/standalone";
 
 interface Item {
   name: string;
