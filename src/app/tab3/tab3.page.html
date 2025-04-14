@@ -10,25 +10,24 @@
   <ion-item>
     <form [formGroup]="inputform">
     <ion-input label="Item Name" labelPlacement="floating" placeholder="Enter text" formControlName="itemName"
-    (input)="onSearch()"></ion-input>
+    ></ion-input>
     <ion-button (click)="onSubmit()">Search</ion-button>
     </form>
   </ion-item >
-  <ion-item *ngIf="deleteSuccess">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <h5>Search Result:</h5>
-        </ion-col>
-      </ion-row>
-      <ion-row *ngIf="searchSuccess">
-        <ion-col>
-          <ion-button (click)="deleteActionSheet()">Delete</ion-button>
-          <ion-button [routerLink]="['/name', params]">Edit</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
+  <h5>Search Result:</h5>
+  <ng-container *ngIf="searchTrigger">
+    <p *ngIf="resultItems.length === 0 && inputform.get('itemName')?.value">
+      No results found for: {{ inputform.get('itemName')?.value }}
+    </p>
+    <p *ngIf="!inputform.get('itemName')?.value">
+      Please enter an item name to start!
+    </p>
+    <ng-container *ngIf="resultItems.length > 0">
+      <ion-list>
+        <app-manage-item *ngFor="let item of resultItems" [item]="item.value" (itemDelete)="handleDelete($event)"></app-manage-item>
+      </ion-list>
+    </ng-container>
+  </ng-container>
 </ion-content>
 
 

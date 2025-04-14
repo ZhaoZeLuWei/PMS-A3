@@ -14,4 +14,8 @@ export class Tab3Service {
   getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(this.scuURL);
   }
+
+  deleteItem(name: string) {
+    return this.http.delete(`${this.scuURL}/${name}`);
+  }
 }

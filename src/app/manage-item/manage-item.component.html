@@ -1,0 +1,17 @@
+ <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h5>{{ item.name }}</h5>
+        <p>Category: {{ item.category }}</p>
+        <p>Quantity: {{ item.quantity }}</p>
+        <p>Price: {{ item.price }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="deleteActionSheet()">Delete</ion-button>
+        <ion-button [routerLink]="['/tab3', item.id]">Edit</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
