@@ -1,16 +1,99 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>name</ion-title>
+    <ion-title>Item Edit </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">name</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <h2>ID: {{info.id}}</h2>
-  <p>Name is: {{nameData}}</p>
-  <ion-button routerLink="/tabs/tab3" routerDirection="back">Back</ion-button>
+  <ion-list>
+    <ion-item>
+      <ion-input
+        label="ID"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter ID (number)"
+        value=""
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        label="Name"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter Name"
+        value=""
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select placeholder="Select a Fruit" [(ngModel)]="inputCategory">
+        <div slot="label">Category <ion-text color="danger" *ngIf="!inputCategory">(Required)</ion-text></div>
+        <ion-select-option value="Electronics">Electronics</ion-select-option>
+        <ion-select-option value="Furniture">Furniture</ion-select-option>
+        <ion-select-option value="Clothing">Clothing</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        label="Quantity"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter Quantity (number)"
+        value=""
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        label="Price"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter Price (number)"
+        value=""
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        label="Supplier Name"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter Supplier Name "
+        value=""
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select placeholder="Stock Status" [(ngModel)]="inputStock">
+        <div slot="label">Stock Status <ion-text color="danger" *ngIf="!inputStock">(Required)</ion-text></div>
+        <ion-select-option value="In Stock">In Stock</ion-select-option>
+        <ion-select-option value="Low Stock">Low Stock</ion-select-option>
+        <ion-select-option value="Out of Stock">Out of Stock</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        label="Featured Item"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter Featured Item (number) "
+        value=""
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-toggle [enableOnOffLabels]="true" [(ngModel)]="showNote">Special Note (Optional)</ion-toggle>
+    </ion-item>
+    <ion-item *ngIf=showNote>
+      <ion-input
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter the item special note here"
+      >
+      </ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button [routerLink]= "['/tab3']" id="noSave">Quit</ion-button>
+  <ion-button [routerLink]= "['/tab3']" id="Save">Save</ion-button>
 </ion-content>
+
