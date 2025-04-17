@@ -12,3 +12,50 @@
     height: 50px; // 跟 input 高度保持一致
   }
 }
+// 帮助信息遮罩层样式
+.help-overlay {
+  position: fixed; // 固定定位，覆盖整个视口
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); // 半透明黑色背景
+  display: flex; // 使用 Flexbox 布局
+  justify-content: center; // 水平居中
+  align-items: center; // 垂直居中
+  z-index: 1000; // 确保在其他内容之上
+  cursor: pointer; // 提示用户点击背景可以关闭
+}
+
+// 帮助信息内容框样式
+.help-box {
+  background-color:var(--ion-item-background); // 白色背景
+  color: var(--ion-text-color);
+  padding: 20px;
+  border-radius: 8px; // 圆角
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // 添加阴影
+  max-width: 80%; // 最大宽度，防止在大屏幕上过宽
+  text-align: center; // 内容居中
+  cursor: default; // 恢复默认鼠标指针
+
+  h3 {
+    margin-top: 0;
+    color: var(--ion-color-primary); // 使用主题颜色
+  }
+
+  p {
+    margin-bottom: 10px; // 段落间距
+    line-height: 1.5; // 行高
+  }
+
+  ion-button {
+    margin-top: 15px; // 关闭按钮的上边距
+  }
+}
+
+// 可选：调整 FAB 按钮的大小或样式
+ion-fab-button {
+  // --background: var(--ion-color-secondary); // 改变背景色示例
+  // width: 60px; // 改变大小示例
+  // height: 60px;
+}

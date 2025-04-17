@@ -26,6 +26,7 @@ interface Params {
 })
 
 export class Tab3Page implements OnInit {
+  showHelp: boolean = false;
   items: FormGroup[] = [];
   resultItems: FormGroup[] = [];
   inputform: FormGroup;
