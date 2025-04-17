@@ -23,17 +23,7 @@
 
   <h2>Search Results:</h2>
   <!-- 新增搜索结果展示区 -->
-  <ion-card *ngIf="showDetails">
-    <ion-card-content>
-      <ion-textarea
-        [value]="selectedItemDetails"
-        readonly
-        autoGrow
-        rows="12"
-        class="result-textarea">
-      </ion-textarea>
-    </ion-card-content>
-  </ion-card>
+
 
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)"> <!-- 下拉刷新 -->
     <ion-refresher-content></ion-refresher-content>

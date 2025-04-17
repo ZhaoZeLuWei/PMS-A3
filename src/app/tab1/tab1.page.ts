@@ -55,23 +55,18 @@ export class Tab1Page implements OnInit {
   }
 
 // 修改后的过滤方法
-  filterItems() {
+ filterItems() {
     const searchTerm = this.searchTerm.trim().toLowerCase();
 
-    // 1.保持原始数据不变
-    this.filteredData = this.originalData;
-
-    // 2.找出匹配项用于卡片展示
-    const matchedItems = this.originalData.filter(item =>
+    // 直接使用匹配项作为过滤数据
+    this.filteredData = this.originalData.filter(item =>
       item.item_name?.toLowerCase().includes(searchTerm)
     );
 
-    // 3.更新卡片显示状态
-    this.showDetails = matchedItems.length > 0;
+    this.showDetails = this.filteredData.length > 0;
+    this.selectedItemDetails = this.formatResults(this.filteredData);
+}
 
-    // 4.格式化匹配项用于文本展示
-    this.selectedItemDetails = this.formatResults(matchedItems);
-  }
 
 // 新增格式化方法
   private formatResults(items: any[]): string {
