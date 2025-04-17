@@ -6,24 +6,29 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
+    <!-- ID -->
     <ion-item>
       <ion-input
         label="ID"
         labelPlacement="stacked"
         [clearInput]="true"
         placeholder="Enter ID (number)"
+        [(ngModel)]="inputId"
       ></ion-input>
     </ion-item>
 
+    <!-- Name -->
     <ion-item>
       <ion-input
         label="Name"
         labelPlacement="stacked"
         [clearInput]="true"
         placeholder="Enter Name"
+        [(ngModel)]="inputName"
       ></ion-input>
     </ion-item>
 
+    <!-- Category -->
     <ion-item>
       <ion-select placeholder="Select a Category" [(ngModel)]="inputCategory">
         <div slot="label">Category <ion-text color="danger" *ngIf="!inputCategory">(Required)</ion-text></div>
@@ -33,33 +38,40 @@
       </ion-select>
     </ion-item>
 
+    <!-- Quantity -->
     <ion-item>
       <ion-input
         label="Quantity"
         labelPlacement="stacked"
         [clearInput]="true"
         placeholder="Enter Quantity (number)"
+        [(ngModel)]="inputQuantity"
       ></ion-input>
     </ion-item>
 
+    <!-- Price -->
     <ion-item>
       <ion-input
         label="Price"
         labelPlacement="stacked"
         [clearInput]="true"
         placeholder="Enter Price (number)"
+        [(ngModel)]="inputPrice"
       ></ion-input>
     </ion-item>
 
+    <!-- Supplier Name -->
     <ion-item>
       <ion-input
         label="Supplier Name"
         labelPlacement="stacked"
         [clearInput]="true"
         placeholder="Enter Supplier Name"
+        [(ngModel)]="inputSupplier"
       ></ion-input>
     </ion-item>
 
+    <!-- Stock Status -->
     <ion-item>
       <ion-select placeholder="Stock Status" [(ngModel)]="inputStock">
         <div slot="label">Stock Status <ion-text color="danger" *ngIf="!inputStock">(Required)</ion-text></div>
@@ -69,6 +81,7 @@
       </ion-select>
     </ion-item>
 
+    <!-- Featured Item -->
     <ion-item>
       <ion-label position="stacked">Featured Item</ion-label>
       <ion-checkbox 
@@ -78,19 +91,23 @@
       ></ion-checkbox>
     </ion-item>
 
+    <!-- Special Note Toggle -->
     <ion-item>
       <ion-toggle [enableOnOffLabels]="true" [(ngModel)]="showNote">Special Note (Optional)</ion-toggle>
     </ion-item>
 
+    <!-- Special Note Input -->
     <ion-item *ngIf="showNote">
       <ion-input
         labelPlacement="stacked"
         [clearInput]="true"
         placeholder="Enter the item special note here"
+        [(ngModel)]="inputNote"
       ></ion-input>
     </ion-item>
   </ion-list>
 
+  <!-- Add Button -->
   <ion-button expand="block" (click)="onAddButtonClick()">Add</ion-button>
 </ion-content>
 
