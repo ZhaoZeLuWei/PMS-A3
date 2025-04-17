@@ -1,70 +1,99 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Add New Record & Featured Items</ion-title>
+    <ion-title>Item Edit</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form #itemForm="ngForm" (ngSubmit)="onSubmit()">
+<ion-content [fullscreen]="true">
+  <ion-list>
     <ion-item>
-      <ion-label position="stacked">Name (Required)</ion-label>
-      <ion-input 
-        type="text" 
-        name="name" 
-        [(ngModel)]="newItem.name" 
-        required
+      <ion-input
+        label="ID"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter ID (number)"
       ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Category</ion-label>
-      <ion-select 
-        name="category" 
-        [(ngModel)]="newItem.category" 
-        required
-      >
+      <ion-input
+        label="Name"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter Name"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-select placeholder="Select a Category" [(ngModel)]="inputCategory">
+        <div slot="label">Category <ion-text color="danger" *ngIf="!inputCategory">(Required)</ion-text></div>
         <ion-select-option value="Electronics">Electronics</ion-select-option>
         <ion-select-option value="Furniture">Furniture</ion-select-option>
         <ion-select-option value="Clothing">Clothing</ion-select-option>
-        <ion-select-option value="Tools">Tools</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Quantity (Required)</ion-label>
-      <ion-input 
-        type="number" 
-        name="quantity" 
-        [(ngModel)]="newItem.quantity" 
-        required
+      <ion-input
+        label="Quantity"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter Quantity (number)"
       ></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>Set as Featured Item</ion-label>
-      <ion-toggle 
-        name="featuredItem" 
-        [(ngModel)]="newItem.featuredItem"
-      ></ion-toggle>
+      <ion-input
+        label="Price"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter Price (number)"
+      ></ion-input>
     </ion-item>
 
-    <ion-button 
-      type="submit" 
-      expand="block" 
-      [disabled]="!itemForm.valid"
-    >
-      Add
-    </ion-button>
-  </form>
+    <ion-item>
+      <ion-input
+        label="Supplier Name"
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter Supplier Name"
+      ></ion-input>
+    </ion-item>
 
-  <ion-list *ngIf="featuredItems.length > 0">
-    <ion-list-header>Current Featured Items</ion-list-header>
-    <ion-item *ngFor="let item of featuredItems">
-      <ion-label>
-        <h2>{{ item.name }}</h2>
-        <p>Category: {{ item.category }}</p>
-        <p>Quantity: {{ item.quantity }}</p>
-      </ion-label>
+    <ion-item>
+      <ion-select placeholder="Stock Status" [(ngModel)]="inputStock">
+        <div slot="label">Stock Status <ion-text color="danger" *ngIf="!inputStock">(Required)</ion-text></div>
+        <ion-select-option value="In Stock">In Stock</ion-select-option>
+        <ion-select-option value="Low Stock">Low Stock</ion-select-option>
+        <ion-select-option value="Out of Stock">Out of Stock</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Featured Item</ion-label>
+      <ion-checkbox 
+        slot="end" 
+        [(ngModel)]="isFeatured" 
+        aria-label="Mark as Featured"
+      ></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-toggle [enableOnOffLabels]="true" [(ngModel)]="showNote">Special Note (Optional)</ion-toggle>
+    </ion-item>
+
+    <ion-item *ngIf="showNote">
+      <ion-input
+        labelPlacement="stacked"
+        [clearInput]="true"
+        placeholder="Enter the item special note here"
+      ></ion-input>
     </ion-item>
   </ion-list>
+
+  <ion-button expand="block" (click)="onAddButtonClick()">Add</ion-button>
 </ion-content>
+
+
+
+
