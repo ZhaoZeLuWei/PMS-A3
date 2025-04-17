@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActionSheetController, IonicModule} from "@ionic/angular";
 import {Params, RouterLink} from "@angular/router";
 import {Tab3Service} from "../tab3/tab3.service";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-manage-item',
@@ -9,11 +10,13 @@ import {Tab3Service} from "../tab3/tab3.service";
   styleUrls: ['./manage-item.component.scss'],
   imports: [
     IonicModule,
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   standalone: true,
 })
 export class ManageItemComponent  implements OnInit {
+  showDetails = false;
   deleteSuccess: boolean = true;
   //receive items one by one
   @Input() item: any;

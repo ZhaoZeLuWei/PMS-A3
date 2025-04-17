@@ -1,20 +1,31 @@
  <ion-grid>
     <ion-row>
       <ion-col>
-        <h5>{{item.id }} : {{ item.name }}</h5>
-        <p>Category: {{ item.category }}</p>
-        <p>Quantity: {{ item.quantity }}</p>
-        <p>Price: {{ item.price }}</p>
-        <p>Supplier Name: {{item.supplierName}}</p>
-        <p>Stock Status: {{item.stockStatus}}</p>
-        <p>Featured Item: <span [innerHTML]="item.featuredItem ? '✅' : '❌'"></span></p>
-        <p>Special Note: {{item?.specialNote}}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button (click)="deleteActionSheet()">Delete</ion-button>
-        <ion-button [routerLink]="['/tab3', item.id]">Edit</ion-button>
+        <ion-card>
+          <h5>{{item.id }} : {{ item.name }}</h5>
+          <ion-button (click)="showDetails = !showDetails">
+            <ion-icon slot="start" [name]="showDetails ? 'eye-off' : 'eye'"></ion-icon>
+            {{ showDetails ? 'Hide' : 'Show'}}
+          </ion-button>
+          <ion-button (click)="deleteActionSheet()">
+            <ion-icon name="trash" slot="start"></ion-icon>
+            Delete</ion-button>
+          <ion-button [routerLink]="['/tab3', item.id]">
+            <ion-icon name="create" slot="start"></ion-icon>
+            Edit</ion-button>
+          <ion-card-content *ngIf="showDetails">
+            <p>Category: {{ item.category }}</p>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Price: {{ item.price }}</p>
+            <p>Supplier Name: {{ item.supplierName }}</p>
+            <p>Stock Status: {{ item.stockStatus }}</p>
+            <p>
+              Featured Item:
+              <span [innerHTML]="item.featuredItem ? '✅' : '❌'"></span>
+            </p>
+            <p>Special Note: {{ item?.specialNote }}</p>
+          </ion-card-content>
+        </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -13,16 +13,17 @@
     <ion-button (click)="onSubmit()">Search</ion-button>
     </form>
   </ion-item >
-  <h5>Search Result:</h5>
   <ng-container *ngIf="searchTrigger">
-    <p *ngIf="resultItems.length === 0 && inputform.get('itemName')?.value">
+
+    <h2 *ngIf="resultItems.length === 0 && inputform.get('itemName')?.value">
       No results found for: {{ inputform.get('itemName')?.value }}
-    </p>
-    <p *ngIf="!inputform.get('itemName')?.value">
+    </h2>
+    <h2 *ngIf="!inputform.get('itemName')?.value">
       Please enter an item name to start!
-    </p>
+    </h2>
     <ng-container *ngIf="resultItems.length > 0">
       <ion-list>
+        <h3>Search Result:</h3>
         <app-manage-item *ngFor="let item of resultItems" [item]="item.value" (itemDelete)="handleDelete($event)"></app-manage-item>
       </ion-list>
     </ng-container>
