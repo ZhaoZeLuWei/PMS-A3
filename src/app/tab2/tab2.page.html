@@ -109,6 +109,27 @@
 
   <!-- Add Button -->
   <ion-button expand="block" (click)="onAddButtonClick()">Add</ion-button>
+
+  <!-- 特色商品列表 -->
+  <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+  <ion-list *ngIf="!loading && featuredItems.length > 0; else noData">
+    <ion-item *ngFor="let item of featuredItems">
+      <ion-label>
+        <h2>{{ item.item_name }}</h2>
+        <p>Category: {{ item.category }}</p>
+        <p>Quantity: {{ item.quantity }}</p>
+        <p>Price: ${{ item.price }}</p>
+        <p>Supplier: {{ item.supplier_name || 'N/A' }}</p>
+        <p>Stock Status: {{ item.stock_status }}</p>
+        <p>Note: {{ item.special_note || 'No note available' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ng-template #noData>
+    <ion-text color="medium" class="ion-padding">
+      No featured items available.
+    </ion-text>
+  </ng-template>
 </ion-content>
 
 

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // 导入 CommonModule
-import { FormsModule } from '@angular/forms';   // 导入 FormsModule
-import { IonicModule } from '@ionic/angular';   // 导入 IonicModule
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { Tab2Service } from './tab2.service';
 import { Item } from './tab2Item.model';
@@ -12,12 +12,13 @@ import { Item } from './tab2Item.model';
   styleUrls: ['tab2.page.scss'],
   standalone: true,
   imports: [
-    CommonModule, 
-    FormsModule,  
-    IonicModule   
+    CommonModule,
+    FormsModule,
+    IonicModule
   ]
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
+  // 表单输入字段
   inputId: string = '';
   inputName: string = '';
   inputCategory: string = '';
@@ -29,69 +30,62 @@ export class Tab2Page {
   showNote: boolean = false;
   inputNote: string = '';
 
+  // 特色商品列表
+  featuredItems: Item[] = [];
+  loading: boolean = true;
+
   constructor(
     private toastController: ToastController,
-    private tab2Service: Tab2Service 
+    private tab2Service: Tab2Service
   ) {}
 
+  ngOnInit() {
+    this.loadFeaturedItems(); // 页面加载时获取特色商品数据
+  }
+
+  // 加载特色商品
+  loadFeaturedItems() {
+    this.tab2Service.getItems().subscribe({
+      next: (data) => {
+        this.featuredItems = data.filter(item => item.featured_item === 1);
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading items:', err);
+        this.loading = false;
+      }
+    });
+  }
+
+  // 添加商品数据
   async onAddButtonClick() {
     if (!this.inputId || isNaN(parseInt(this.inputId, 10))) {
-      const toast = await this.toastController.create({
-        message: 'ID is required and must be an integer.',
-        duration: 2000,
-        color: 'danger',
-      });
-      await toast.present();
+      await this.showToast('ID is required and must be an integer.', 'danger');
       return;
     }
 
     if (!this.inputName || typeof this.inputName !== 'string') {
-      const toast = await this.toastController.create({
-        message: 'Name is required and must be a string.',
-        duration: 2000,
-        color: 'danger',
-      });
-      await toast.present();
+      await this.showToast('Name is required and must be a string.', 'danger');
       return;
     }
 
     if (!this.inputCategory) {
-      const toast = await this.toastController.create({
-        message: 'Category is required.',
-        duration: 2000,
-        color: 'danger',
-      });
-      await toast.present();
+      await this.showToast('Category is required.', 'danger');
       return;
     }
 
     if (!this.inputQuantity || isNaN(parseInt(this.inputQuantity, 10)) || parseInt(this.inputQuantity, 10) <= 0) {
-      const toast = await this.toastController.create({
-        message: 'Quantity is required and must be a positive integer.',
-        duration: 2000,
-        color: 'danger',
-      });
-      await toast.present();
+      await this.showToast('Quantity is required and must be a positive integer.', 'danger');
       return;
     }
 
     if (!this.inputPrice || isNaN(parseFloat(this.inputPrice)) || parseFloat(this.inputPrice) <= 0) {
-      const toast = await this.toastController.create({
-        message: 'Price is required and must be a positive number.',
-        duration: 2000,
-        color: 'danger',
-      });
-      await toast.present();
+      await this.showToast('Price is required and must be a positive number.', 'danger');
       return;
     }
 
     if (!this.inputStock) {
-      const toast = await this.toastController.create({
-        message: 'Stock Status is required.',
-        duration: 2000,
-        color: 'danger',
-      });
-      await toast.present();
+      await this.showToast('Stock Status is required.', 'danger');
       return;
     }
 
@@ -109,20 +103,38 @@ export class Tab2Page {
 
     this.tab2Service.addItem(newItem).subscribe({
       next: () => {
-        this.toastController.create({
-          message: 'Item added successfully!',
-          duration: 2000,
-          color: 'success',
-        }).then(toast => toast.present());
+        this.showToast('Item added successfully!', 'success');
+        this.resetForm();
+        this.loadFeaturedItems(); // 刷新特色商品列表
       },
       error: (err) => {
         console.error('Error adding item:', err);
-        this.toastController.create({
-          message: 'Failed to add item. Please try again.',
-          duration: 2000,
-          color: 'danger',
-        }).then(toast => toast.present());
+        this.showToast('Failed to add item. Please try again.', 'danger');
       }
     });
+  }
+
+  // 显示提示消息
+  async showToast(message: string, color: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color,
+    });
+    await toast.present();
+  }
+
+  // 重置表单
+  resetForm() {
+    this.inputId = '';
+    this.inputName = '';
+    this.inputCategory = '';
+    this.inputQuantity = '';
+    this.inputPrice = '';
+    this.inputSupplier = '';
+    this.inputStock = '';
+    this.isFeatured = false;
+    this.showNote = false;
+    this.inputNote = '';
   }
 }

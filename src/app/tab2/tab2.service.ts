@@ -15,4 +15,8 @@ export class Tab2Service {
   addItem(item: Item): Observable<Item> {
     return this.http.post<Item>(this.scuURL, item);
   }
+  // 获取所有项目
+  getItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.scuURL}/items`);
+  }
 }
