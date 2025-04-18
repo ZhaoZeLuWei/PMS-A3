@@ -110,8 +110,9 @@
   <!-- Add Button -->
   <ion-button expand="block" (click)="onAddButtonClick()">Add</ion-button>
 
-  <!-- 特色商品列表 -->
   <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+
+  <!-- 特色商品列表 -->
   <ion-list *ngIf="!loading && featuredItems.length > 0; else noData">
     <ion-item *ngFor="let item of featuredItems">
       <ion-label>
@@ -125,13 +126,14 @@
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <!-- 无数据提示 -->
   <ng-template #noData>
     <ion-text color="medium" class="ion-padding">
       No featured items available.
     </ion-text>
   </ng-template>
 </ion-content>
-
 
 
 

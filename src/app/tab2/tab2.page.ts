@@ -18,7 +18,6 @@ import { Item } from './tab2Item.model';
   ]
 })
 export class Tab2Page implements OnInit {
-  // 表单输入字段
   inputId: string = '';
   inputName: string = '';
   inputCategory: string = '';
@@ -30,7 +29,6 @@ export class Tab2Page implements OnInit {
   showNote: boolean = false;
   inputNote: string = '';
 
-  // 特色商品列表
   featuredItems: Item[] = [];
   loading: boolean = true;
 
@@ -43,11 +41,16 @@ export class Tab2Page implements OnInit {
     this.loadFeaturedItems(); // 页面加载时获取特色商品数据
   }
 
-  // 加载特色商品
   loadFeaturedItems() {
     this.tab2Service.getItems().subscribe({
       next: (data) => {
+        console.log('Received raw data:', data);
+        // 检查每个项目的 featured_item 值
+        data.forEach(item => {
+          console.log(`Item Name: ${item.item_name}, Featured Item: ${item.featured_item}`);
+        });
         this.featuredItems = data.filter(item => item.featured_item === 1);
+        console.log('Filtered featured items:', this.featuredItems);
         this.loading = false;
       },
       error: (err) => {
@@ -56,8 +59,7 @@ export class Tab2Page implements OnInit {
       }
     });
   }
-
-  // 添加商品数据
+  
   async onAddButtonClick() {
     if (!this.inputId || isNaN(parseInt(this.inputId, 10))) {
       await this.showToast('ID is required and must be an integer.', 'danger');
@@ -114,7 +116,6 @@ export class Tab2Page implements OnInit {
     });
   }
 
-  // 显示提示消息
   async showToast(message: string, color: string) {
     const toast = await this.toastController.create({
       message,
@@ -124,7 +125,6 @@ export class Tab2Page implements OnInit {
     await toast.present();
   }
 
-  // 重置表单
   resetForm() {
     this.inputId = '';
     this.inputName = '';
