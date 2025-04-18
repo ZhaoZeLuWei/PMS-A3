@@ -33,6 +33,10 @@ export class Tab3Page implements OnInit {
   //Checkout user is doing input to search
   searchTrigger: boolean = false;
   ts: ToastController = new ToastController;
+  //check internet connections (runtime 10s)
+  isLoading: boolean = false;
+  loadFailed: boolean = false;
+  loadTimeout:any;
 
   constructor(
               private fb: FormBuilder, private ac:AlertController, private http:HttpClient,
@@ -56,8 +60,21 @@ export class Tab3Page implements OnInit {
   }
 
   ngOnInit() {
+    this.isLoading = true;
+    this.loadFailed = false;
+
+    this.loadTimeout = setTimeout(() => {
+      if (this.isLoading) {
+        this.loadFailed = true;
+      }
+    }, 10000);
+
     this.t3Service.getItems().subscribe({
       next: (scuData: Item[]) => {
+        //get data then clear
+        clearTimeout(this.loadTimeout);
+        this.isLoading = false;
+
         this.items = scuData.map(
           item => this.fb.group({
             id: [item.item_id],
@@ -72,12 +89,16 @@ export class Tab3Page implements OnInit {
           })
         );
         console.log(this.items);
+
         this.inputform.get('itemName')?.valueChanges.subscribe(() => {
           this.searchTrigger = false;
           this.onSearch();
         });
       },
       error: (err: any) => {
+        clearTimeout(this.loadTimeout);
+        this.isLoading = false;
+        this.loadFailed = true;
         console.error("Error to init the items form group.", err);
       }
     })
@@ -132,4 +153,3 @@ export class Tab3Page implements OnInit {
   }
 
 }
-

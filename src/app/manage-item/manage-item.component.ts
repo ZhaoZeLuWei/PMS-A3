@@ -15,7 +15,7 @@ import {NgIf} from "@angular/common";
   ],
   standalone: true,
 })
-export class ManageItemComponent  implements OnInit {
+export class ManageItemComponent implements OnInit {
   showDetails = false;
   deleteSuccess: boolean = true;
   //receive items one by one

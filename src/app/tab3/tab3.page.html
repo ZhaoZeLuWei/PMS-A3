@@ -14,7 +14,15 @@
     </form>
   </ion-item >
   <ng-container *ngIf="searchTrigger">
+    <!-- 加载中提示 -->
+    <ion-item *ngIf="isLoading && !loadFailed">
+      <ion-label>Now Loading...</ion-label>
+    </ion-item>
 
+    <!-- 加载失败提示 -->
+    <ion-item *ngIf="loadFailed">
+      <ion-label color="danger">Error: No internet connection. Can't get form server</ion-label>
+    </ion-item>
     <h2 *ngIf="resultItems.length === 0 && inputform.get('itemName')?.value">
       No results found for: {{ inputform.get('itemName')?.value }}
     </h2>

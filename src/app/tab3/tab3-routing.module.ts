@@ -6,6 +6,11 @@ const routes: Routes = [
   {
     path: '',
     component: Tab3Page,
+  },
+  {
+    path: 'edit/:id',
+    loadChildren: () =>
+      import('../name/name.module').then(m => m.NamePageModule),
   }
 ];
 

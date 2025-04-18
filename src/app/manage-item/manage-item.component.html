@@ -10,7 +10,7 @@
           <ion-button (click)="deleteActionSheet()">
             <ion-icon name="trash" slot="start"></ion-icon>
             Delete</ion-button>
-          <ion-button [routerLink]="['/tab3', item.id]">
+          <ion-button [routerLink]="['/tabs/tab3/edit', item.id]" [state]="{item: this.item }">
             <ion-icon name="create" slot="start"></ion-icon>
             Edit</ion-button>
           <ion-card-content *ngIf="showDetails">
