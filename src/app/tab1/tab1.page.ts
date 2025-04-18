@@ -15,7 +15,6 @@ export class Tab1Page implements OnInit {
   searchTerm: string = '';     // 搜索关键词
   isLoading: boolean = false;  // 加载状态
   error: string = '';          // 错误信息
-  selectedItemDetails: string = ''; // 存储搜索结果的详细信息
   // 新增属性
   showDetails: boolean = true;
 
@@ -62,29 +61,8 @@ export class Tab1Page implements OnInit {
     this.filteredData = this.originalData.filter(item =>
       item.item_name?.toLowerCase().includes(searchTerm)
     );
-
     this.showDetails = this.filteredData.length > 0;
-    this.selectedItemDetails = this.formatResults(this.filteredData);
 }
-
-
-// 新增格式化方法
-  private formatResults(items: any[]): string {
-    return items.map(item =>
-      [
-        `Item ID: ${item.item_id}`,
-        `Name: ${item.item_name || ' '}`,
-        `Category: ${item.category}`,
-        `Supplier: ${item.supplier_name || ' '}`,
-        `Quantity: ${item.quantity}`,
-        `Price: $${Number(item.price).toFixed(2)}`, // 修复价格格式化
-        `Stock Status: ${item.stock_status}`,
-        `Featured: ${item.featured_item === 1 ? 'Yes' : 'No'}`, // 统一为 Yes/No
-        `Notes: ${item.special_note || ' '}`,
-        '----------------------------'
-      ].join('\n')
-    ).join('\n\n');
-  }
 
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -99,7 +77,6 @@ export class Tab1Page implements OnInit {
   refresh(event: any) {
     this.loadData().then(() => {
       this.searchTerm = ''; // 清空搜索关键词
-      this.selectedItemDetails = ''; // 清空详细信息
       event.target.complete();
     });
   }
