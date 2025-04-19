@@ -1,13 +1,14 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary"> <!-- Set toolbar color to primary -->
     <ion-title>Item Edit</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <!-- ID -->
+    <!-- ID Field -->
     <ion-item>
+      <ion-icon slot="start" name="barcode"></ion-icon> <!-- Barcode icon -->
       <ion-input
         label="ID"
         labelPlacement="stacked"
@@ -17,8 +18,9 @@
       ></ion-input>
     </ion-item>
 
-    <!-- Name -->
+    <!-- Name Field -->
     <ion-item>
+      <ion-icon slot="start" name="text"></ion-icon> <!-- Text icon -->
       <ion-input
         label="Name"
         labelPlacement="stacked"
@@ -28,8 +30,9 @@
       ></ion-input>
     </ion-item>
 
-    <!-- Category -->
+    <!-- Category Dropdown -->
     <ion-item>
+      <ion-icon slot="start" name="list"></ion-icon> <!-- List icon -->
       <ion-select placeholder="Select a Category" [(ngModel)]="inputCategory">
         <div slot="label">Category <ion-text color="danger" *ngIf="!inputCategory">(Required)</ion-text></div>
         <ion-select-option value="Electronics">Electronics</ion-select-option>
@@ -38,8 +41,9 @@
       </ion-select>
     </ion-item>
 
-    <!-- Quantity -->
+    <!-- Quantity Field -->
     <ion-item>
+      <ion-icon slot="start" name="layers"></ion-icon> <!-- Layers icon -->
       <ion-input
         label="Quantity"
         labelPlacement="stacked"
@@ -49,8 +53,9 @@
       ></ion-input>
     </ion-item>
 
-    <!-- Price -->
+    <!-- Price Field -->
     <ion-item>
+      <ion-icon slot="start" name="cash"></ion-icon> <!-- Cash icon -->
       <ion-input
         label="Price"
         labelPlacement="stacked"
@@ -60,8 +65,9 @@
       ></ion-input>
     </ion-item>
 
-    <!-- Supplier Name -->
+    <!-- Supplier Name Field -->
     <ion-item>
+      <ion-icon slot="start" name="person"></ion-icon> <!-- Person icon -->
       <ion-input
         label="Supplier Name"
         labelPlacement="stacked"
@@ -71,8 +77,9 @@
       ></ion-input>
     </ion-item>
 
-    <!-- Stock Status -->
+    <!-- Stock Status Dropdown -->
     <ion-item>
+      <ion-icon slot="start" name="archive"></ion-icon> <!-- Archive icon -->
       <ion-select placeholder="Stock Status" [(ngModel)]="inputStock">
         <div slot="label">Stock Status <ion-text color="danger" *ngIf="!inputStock">(Required)</ion-text></div>
         <ion-select-option value="In Stock">In Stock</ion-select-option>
@@ -81,7 +88,7 @@
       </ion-select>
     </ion-item>
 
-    <!-- Featured Item -->
+    <!-- Featured Item Toggle -->
     <ion-item>
       <ion-label position="stacked">Featured Item</ion-label>
       <ion-checkbox 
@@ -98,6 +105,7 @@
 
     <!-- Special Note Input -->
     <ion-item *ngIf="showNote">
+      <ion-icon slot="start" name="document-text"></ion-icon> <!-- Document icon -->
       <ion-input
         labelPlacement="stacked"
         [clearInput]="true"
@@ -108,32 +116,44 @@
   </ion-list>
 
   <!-- Add Button -->
-  <ion-button expand="block" (click)="onAddButtonClick()">Add</ion-button>
+  <ion-button expand="block" color="secondary" (click)="onAddButtonClick()"> <!-- Secondary button with click event -->
+    <ion-icon slot="start" name="add-circle"></ion-icon> <!-- Add icon -->
+    Add Item
+  </ion-button>
 
-  <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+  <!-- Loading Spinner -->
+  <ion-spinner *ngIf="loading" name="crescent" color="primary"></ion-spinner> <!-- Crescent spinner -->
 
-  <!-- 特色商品列表 -->
-  <ion-list *ngIf="!loading && featuredItems.length > 0; else noData">
-    <ion-item *ngFor="let item of featuredItems">
-      <ion-label>
-        <h2>{{ item.item_name }}</h2>
-        <p>Category: {{ item.category }}</p>
-        <p>Quantity: {{ item.quantity }}</p>
-        <p>Price: ${{ item.price }}</p>
-        <p>Supplier: {{ item.supplier_name || 'N/A' }}</p>
-        <p>Stock Status: {{ item.stock_status }}</p>
-        <p>Note: {{ item.special_note || 'No note available' }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <!-- Featured Items Grid -->
+  <ion-grid *ngIf="!loading && featuredItems.length > 0; else noData"> <!-- Show if items exist -->
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let item of featuredItems">
+        <ion-card class="featured-item-card"> <!-- Card for each item -->
+          <ion-card-header>
+            <ion-card-title>{{ item.item_name }}</ion-card-title>
+            <ion-card-subtitle>Category: {{ item.category }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+            <p><strong>Price:</strong> ${{ item.price }}</p>
+            <p><strong>Supplier:</strong> {{ item.supplier_name || 'N/A' }}</p>
+            <p><strong>Stock Status:</strong> {{ item.stock_status }}</p>
+            <p><strong>Note:</strong> {{ item.special_note || 'No note available' }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <!-- 无数据提示 -->
+  <!-- No Data Template -->
   <ng-template #noData>
-    <ion-text color="medium" class="ion-padding">
-      No featured items available.
-    </ion-text>
+    <div class="no-data-container"> <!-- Container for empty state -->
+      <img src="assets/images/no-data.svg" alt="No Data" class="no-data-image" /> <!-- Empty state image -->
+      <ion-text color="medium" class="no-data-message">
+        No featured items available.
+      </ion-text>
+    </div>
   </ng-template>
 </ion-content>
-
 
 

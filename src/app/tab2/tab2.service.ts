@@ -11,12 +11,13 @@ export class Tab2Service {
 
   constructor(private http: HttpClient) {}
 
-  // 添加新项目
+  // Add a new item to the server
   addItem(item: Item): Observable<Item> {
     return this.http.post<Item>(this.scuURL, item);
   }
-  // 获取所有项目
+
+  // Fetch all items from the server
   getItems(): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.scuURL}/items`);
+    return this.http.get<Item[]>(`${this.scuURL}`);
   }
 }

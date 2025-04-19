@@ -18,6 +18,7 @@ import { Item } from './tab2Item.model';
   ]
 })
 export class Tab2Page implements OnInit {
+  // Input fields for item details
   inputId: string = '';
   inputName: string = '';
   inputCategory: string = '';
@@ -25,31 +26,31 @@ export class Tab2Page implements OnInit {
   inputPrice: string = '';
   inputSupplier: string = '';
   inputStock: string = '';
-  isFeatured: boolean = false;
-  showNote: boolean = false;
-  inputNote: string = '';
+  isFeatured: boolean = false; // Featured item toggle
+  showNote: boolean = false; // Special note toggle
+  inputNote: string = ''; // Special note input
 
-  featuredItems: Item[] = [];
-  loading: boolean = true;
+  featuredItems: Item[] = []; // List of featured items
+  loading: boolean = true; // Loading state for data fetching
 
   constructor(
-    private toastController: ToastController,
-    private tab2Service: Tab2Service
+    private toastController: ToastController, // For displaying toast messages
+    private tab2Service: Tab2Service // Service to handle API calls
   ) {}
 
   ngOnInit() {
-    this.loadFeaturedItems(); // 页面加载时获取特色商品数据
+    this.loadFeaturedItems(); // Load featured items on page init
   }
 
+  // Fetch featured items from the service
   loadFeaturedItems() {
     this.tab2Service.getItems().subscribe({
       next: (data) => {
         console.log('Received raw data:', data);
-        // 检查每个项目的 featured_item 值
         data.forEach(item => {
           console.log(`Item Name: ${item.item_name}, Featured Item: ${item.featured_item}`);
         });
-        this.featuredItems = data.filter(item => item.featured_item === 1);
+        this.featuredItems = data.filter(item => item.featured_item === 1); // Filter only featured items
         console.log('Filtered featured items:', this.featuredItems);
         this.loading = false;
       },
@@ -59,38 +60,46 @@ export class Tab2Page implements OnInit {
       }
     });
   }
-  
+
+  // Handle Add Item button click
   async onAddButtonClick() {
+    // Validate ID
     if (!this.inputId || isNaN(parseInt(this.inputId, 10))) {
       await this.showToast('ID is required and must be an integer.', 'danger');
       return;
     }
 
+    // Validate Name
     if (!this.inputName || typeof this.inputName !== 'string') {
       await this.showToast('Name is required and must be a string.', 'danger');
       return;
     }
 
+    // Validate Category
     if (!this.inputCategory) {
       await this.showToast('Category is required.', 'danger');
       return;
     }
 
+    // Validate Quantity
     if (!this.inputQuantity || isNaN(parseInt(this.inputQuantity, 10)) || parseInt(this.inputQuantity, 10) <= 0) {
       await this.showToast('Quantity is required and must be a positive integer.', 'danger');
       return;
     }
 
+    // Validate Price
     if (!this.inputPrice || isNaN(parseFloat(this.inputPrice)) || parseFloat(this.inputPrice) <= 0) {
       await this.showToast('Price is required and must be a positive number.', 'danger');
       return;
     }
 
+    // Validate Stock Status
     if (!this.inputStock) {
       await this.showToast('Stock Status is required.', 'danger');
       return;
     }
 
+    // Create new item object
     const newItem = {
       item_id: parseInt(this.inputId, 10),
       item_name: this.inputName,
@@ -103,11 +112,12 @@ export class Tab2Page implements OnInit {
       special_note: this.showNote ? this.inputNote : undefined,
     };
 
+    // Call service to add the item
     this.tab2Service.addItem(newItem).subscribe({
       next: () => {
         this.showToast('Item added successfully!', 'success');
-        this.resetForm();
-        this.loadFeaturedItems(); // 刷新特色商品列表
+        this.resetForm(); // Reset form fields
+        this.loadFeaturedItems(); // Refresh featured items list
       },
       error: (err) => {
         console.error('Error adding item:', err);
@@ -116,6 +126,7 @@ export class Tab2Page implements OnInit {
     });
   }
 
+  // Show toast message
   async showToast(message: string, color: string) {
     const toast = await this.toastController.create({
       message,
@@ -125,6 +136,7 @@ export class Tab2Page implements OnInit {
     await toast.present();
   }
 
+  // Reset all form fields
   resetForm() {
     this.inputId = '';
     this.inputName = '';
