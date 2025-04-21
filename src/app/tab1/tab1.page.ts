@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../app/data.service';
 import { LoadingController, AlertController } from '@ionic/angular';
+import { HelpContentService} from "../help-content.service";
+import {HelpModalComponent} from "../help-modal/help-modal.component";
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -21,7 +24,9 @@ export class Tab1Page implements OnInit {
   constructor(
     private apiService: ApiService,
     private loadingController: LoadingController,
-    private alertController: AlertController
+    private alertController: AlertController,
+  private modalCtrl: ModalController,
+  private helpContent: HelpContentService
   ) {}
 
   ngOnInit() {
@@ -80,4 +85,17 @@ export class Tab1Page implements OnInit {
       event.target.complete();
     });
   }
+  async showHelp() {
+    const helpData = this.helpContent.getHelpContent('search');
+
+    const modal = await this.modalCtrl.create({
+      component: HelpModalComponent,
+      componentProps: helpData,
+      cssClass: 'help-modal'
+    });
+
+    await modal.present();
+  }
+
+  protected readonly HelpContentService = HelpContentService;
 }

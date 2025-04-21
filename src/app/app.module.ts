@@ -9,16 +9,19 @@ import { AppComponent } from './app.component';
 import { ApiService } from './data.service';
 import { HttpClientModule} from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { CommonModule } from '@angular/common';
+import {HelpModalComponent} from "./help-modal/help-modal.component"; // 必须导入
 
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HelpModalComponent],
   imports: [BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    CommonModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -1,0 +1,36 @@
+<!-- 修正后的 help-modal.component.html -->
+<ion-header> <!-- 确保 ion-header 存在于模板中 -->
+  <ion-toolbar [attr.help-type]="helpType">
+    <ion-title>
+      <ion-icon [name]="helpIcon"></ion-icon> <!-- 确保 helpIcon 已初始化 -->
+      {{ title }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- 使用严格条件避免 undefined -->
+  <div class="section" *ngIf="steps && steps.length > 0">
+    <h3>
+      <ion-icon name="list-outline"></ion-icon>
+      Steps of operation
+    </h3>
+    <ol>
+      <li *ngFor="let step of steps">{{ step }}</li>
+    </ol>
+  </div>
+
+  <!-- 同样处理 examples 和 tips -->
+  <div class="section" *ngIf="examples && examples.length > 0">
+    <!-- ... -->
+  </div>
+
+  <div class="section" *ngIf="tips && tips.length > 0">
+    <!-- ... -->
+  </div>
+</ion-content>
