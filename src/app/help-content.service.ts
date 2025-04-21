@@ -9,10 +9,10 @@ export class HelpContentService {
   private contents = {
     search: {
       helpType: 'search',
-      title: '搜索功能帮助',
+      title: 'Search Feature Help',
       steps: [
-        '在搜索栏输入关键词,仅支持英文、数字',
-        '点击键盘的enter来搜索内容',
+        'Enter the keyword in the search bar, only support English, numbers',
+        'Click enter on your keyboard to search for content',
       ],
     },
     add: {
