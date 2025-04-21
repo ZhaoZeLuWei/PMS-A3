@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../app/data.service';
 import { LoadingController, AlertController } from '@ionic/angular';
+import { HelpContentService} from "../help-content.service";
+import {HelpModalComponent} from "../help-modal/help-modal.component";
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -15,14 +18,15 @@ export class Tab1Page implements OnInit {
   searchTerm: string = '';     // 搜索关键词
   isLoading: boolean = false;  // 加载状态
   error: string = '';          // 错误信息
-  selectedItemDetails: string = ''; // 存储搜索结果的详细信息
   // 新增属性
   showDetails: boolean = true;
 
   constructor(
     private apiService: ApiService,
     private loadingController: LoadingController,
-    private alertController: AlertController
+    private alertController: AlertController,
+  private modalCtrl: ModalController,
+  private helpContent: HelpContentService
   ) {}
 
   ngOnInit() {
@@ -55,41 +59,15 @@ export class Tab1Page implements OnInit {
   }
 
 // 修改后的过滤方法
-  filterItems() {
+ filterItems() {
     const searchTerm = this.searchTerm.trim().toLowerCase();
 
-    // 1.保持原始数据不变
-    this.filteredData = this.originalData;
-
-    // 2.找出匹配项用于卡片展示
-    const matchedItems = this.originalData.filter(item =>
+    // 直接使用匹配项作为过滤数据
+    this.filteredData = this.originalData.filter(item =>
       item.item_name?.toLowerCase().includes(searchTerm)
     );
-
-    // 3.更新卡片显示状态
-    this.showDetails = matchedItems.length > 0;
-
-    // 4.格式化匹配项用于文本展示
-    this.selectedItemDetails = this.formatResults(matchedItems);
-  }
-
-// 新增格式化方法
-  private formatResults(items: any[]): string {
-    return items.map(item =>
-      [
-        `Item ID: ${item.item_id}`,
-        `Name: ${item.item_name || ' '}`,
-        `Category: ${item.category}`,
-        `Supplier: ${item.supplier_name || ' '}`,
-        `Quantity: ${item.quantity}`,
-        `Price: $${Number(item.price).toFixed(2)}`, // 修复价格格式化
-        `Stock Status: ${item.stock_status}`,
-        `Featured: ${item.featured_item === 1 ? 'Yes' : 'No'}`, // 统一为 Yes/No
-        `Notes: ${item.special_note || ' '}`,
-        '----------------------------'
-      ].join('\n')
-    ).join('\n\n');
-  }
+    this.showDetails = this.filteredData.length > 0;
+}
 
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -104,8 +82,20 @@ export class Tab1Page implements OnInit {
   refresh(event: any) {
     this.loadData().then(() => {
       this.searchTerm = ''; // 清空搜索关键词
-      this.selectedItemDetails = ''; // 清空详细信息
       event.target.complete();
     });
   }
+  async showHelp() {
+    const helpData = this.helpContent.getHelpContent('search');
+
+    const modal = await this.modalCtrl.create({
+      component: HelpModalComponent,
+      componentProps: helpData,
+      cssClass: 'help-modal'
+    });
+
+    await modal.present();
+  }
+
+  protected readonly HelpContentService = HelpContentService;
 }
