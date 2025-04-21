@@ -13,12 +13,12 @@ import { ModalController } from '@ionic/angular';
 })
 export class Tab1Page implements OnInit {
 
-  originalData: any[] = [];    // 原始数据
-  filteredData: any[] = [];    // 过滤后数据
-  searchTerm: string = '';     // 搜索关键词
-  isLoading: boolean = false;  // 加载状态
-  error: string = '';          // 错误信息
-  // 新增属性
+  originalData: any[] = [];    // Raw data
+  filteredData: any[] = [];    // Filtered data
+  searchTerm: string = '';     // Search keywords
+  isLoading: boolean = false;  // Search keywords
+  error: string = '';          // Error messages
+  // New attributes
   showDetails: boolean = true;
 
   constructor(
@@ -44,7 +44,7 @@ export class Tab1Page implements OnInit {
     this.apiService.getAllItems().subscribe(
       (data: any[]) => {
         this.originalData = data;
-        this.filteredData = data; // 初始化过滤后的数据为原始数据
+        this.filteredData = data; // Initialize the filtered data as raw data
         this.isLoading = false;
         loading.dismiss();
       },
@@ -58,11 +58,11 @@ export class Tab1Page implements OnInit {
     );
   }
 
-// 修改后的过滤方法
+
  filterItems() {
     const searchTerm = this.searchTerm.trim().toLowerCase();
 
-    // 直接使用匹配项作为过滤数据
+    //Initialize the filtered data as raw data
     this.filteredData = this.originalData.filter(item =>
       item.item_name?.toLowerCase().includes(searchTerm)
     );

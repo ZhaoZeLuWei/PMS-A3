@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import {IonicModule, ModalController} from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { Tab2Service } from './tab2.service';
 import { Item } from './tab2Item.model';
+import {HelpModalComponent} from "../help-modal/help-modal.component";
+import {HelpContentService} from "../help-content.service";
 
 @Component({
   selector: 'app-tab2',
@@ -35,7 +37,9 @@ export class Tab2Page implements OnInit {
 
   constructor(
     private toastController: ToastController, // For displaying toast messages
-    private tab2Service: Tab2Service // Service to handle API calls
+    private tab2Service: Tab2Service, // Service to handle API calls
+  private modalCtrl: ModalController,
+  private helpContent: HelpContentService
   ) {}
 
   ngOnInit() {
@@ -148,5 +152,16 @@ export class Tab2Page implements OnInit {
     this.isFeatured = false;
     this.showNote = false;
     this.inputNote = '';
+  }
+  async showHelp() {
+    const helpData = this.helpContent.getHelpContent('add');
+
+    const modal = await this.modalCtrl.create({
+      component: HelpModalComponent,
+      componentProps: helpData,
+      cssClass: 'help-modal'
+    });
+
+    await modal.present();
   }
 }

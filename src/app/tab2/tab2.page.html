@@ -1,6 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary"> <!-- Set toolbar color to primary -->
     <ion-title>Item Edit</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showHelp()">
+        <ion-icon name="help-circle" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -91,9 +96,9 @@
     <!-- Featured Item Toggle -->
     <ion-item>
       <ion-label position="stacked">Featured Item</ion-label>
-      <ion-checkbox 
-        slot="end" 
-        [(ngModel)]="isFeatured" 
+      <ion-checkbox
+        slot="end"
+        [(ngModel)]="isFeatured"
         aria-label="Mark as Featured"
       ></ion-checkbox>
     </ion-item>

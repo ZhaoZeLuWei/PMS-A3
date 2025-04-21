@@ -3,7 +3,7 @@
     <ion-title>
       Tab 1
     </ion-title>
-    <!-- 添加帮助按钮 -->
+    <! -- Add help button -->
     <ion-buttons slot="end">
       <ion-button (click)="showHelp()">
         <ion-icon name="help-circle" slot="icon-only"></ion-icon>
@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- 下拉刷新 -->
+  <! -- Drop down refresh -->
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
     <ion-refresher-content
       pullingIcon="lines"
@@ -21,7 +21,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <!-- 搜索栏 -->
+  <! -- Search bar -->
   <ion-searchbar
     [(ngModel)]="searchTerm"
     (ionInput)="filterItems()"
@@ -30,7 +30,7 @@
     class="custom-searchbar">
   </ion-searchbar>
 
-  <!-- 加载指示器 -->
+  <! -- Load indicator -->
   <div *ngIf="isLoading" class="loading-overlay">
     <div class="loading-content">
       <ion-spinner name="crescent" color="primary"></ion-spinner>
@@ -38,24 +38,24 @@
     </div>
   </div>
 
-  <!-- 错误提示 -->
+
   <div *ngIf="error" class="error-message">
     <ion-icon name="warning" color="danger"></ion-icon>
     <p>{{ error }}</p >
   </div>
 
-  <!-- 商品列表 -->
+
   <ion-list lines="none" class="ion-padding-horizontal">
-    <!-- 空状态提示 -->
+
     <div *ngIf="!isLoading && filteredData.length === 0" class="empty-state">
       <ion-icon name="search-outline" class="empty-icon"></ion-icon>
       <h3>No products found</h3>
       <p>Try adjusting search terms or a drop-down refresh</p >
     </div>
 
-    <!-- 商品卡片 -->
+
     <ion-item-sliding *ngFor="let item of filteredData">
-      <!-- 卡片内容 -->
+
       <ion-card class="item-card">
         <ion-card-header>
           <ion-card-title class="item-title">
