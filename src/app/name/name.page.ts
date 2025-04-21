@@ -22,13 +22,13 @@ export class NamePage implements OnInit {
   noteToggle:boolean = false;
   form!: FormGroup;
 
-
+  //Injecting all Dependencies
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private ac: AlertController,
   private  Tab3Service:Tab3Service, private lc:LoadingController, private router: Router,
   ) {
   }
 
-
+//a validator to double check the value of quantity and stock status
   quantityZeroCheck() {
     return (group: FormGroup) => {
       let stockStatus = group.get("stockStatus");
@@ -38,6 +38,7 @@ export class NamePage implements OnInit {
         console.log(stockStatusValue);
         let quantityValue = quantity.value;
         console.log(quantityValue);
+        //check if out of stock with 0 item quantity
         if (stockStatusValue === "Out of stock" && quantityValue !== 0) {
           return {quantityZeroCheck: true};
         }
@@ -46,6 +47,7 @@ export class NamePage implements OnInit {
     };
   }
 
+  //init and get the route parameters, set the form
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.info = params;
@@ -58,6 +60,7 @@ export class NamePage implements OnInit {
       return;
     }
 
+    //set the form, put all datas in the form
     this.form = this.fb.group({
       id: [this.item.id, [
         Validators.required,
@@ -94,6 +97,7 @@ export class NamePage implements OnInit {
     console.log(this.form);
   }
 
+  //set toggle change if there is a special note
   onNoteToggleChange() {
     let noteControl = this.form.get('specialNote');
     if(!this.noteToggle) {
@@ -106,6 +110,7 @@ export class NamePage implements OnInit {
     }
   }
 
+  //to create a new Item Object and sent this JSON into the server
   async createItemObject(formValues: any) {
     const newItem: Item = {
       // 直接使用传入的 formValues 对象
@@ -122,8 +127,10 @@ export class NamePage implements OnInit {
     return newItem;
   }
 
+  //when click the save, submit all changes into the server
   async submitForm() {
     if (this.form.invalid) {
+      //if validations wrong, stop submit
       const alert = await this.ac.create({
         header: 'Validation Error',
         message: 'Please ensure all fields are filled correctly.',
@@ -135,6 +142,7 @@ export class NamePage implements OnInit {
 
     console.log(this.form.value);
 
+    //show user the loading
     let loading = await this.lc.create({
       message: 'Updating...',
       spinner: 'dots',
@@ -144,6 +152,8 @@ export class NamePage implements OnInit {
 
     let newItem = await this.createItemObject(this.form.value);
 
+
+    //if the server send the success info back
     this.Tab3Service.updateItem(newItem).subscribe({
       next: async (response) => { // next 方法处理成功响应
         console.log("Updated successfully", response);

@@ -4,9 +4,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
+<!--  Use formGroup to connect data values -->
   <form [formGroup]="form">
   <ion-list>
     <ion-item>
+<!--      input must be a number， with a button to clear the input -->
       <ion-input
         type="number"
         label="ID"
@@ -17,22 +19,26 @@
       >
       </ion-input>
     </ion-item>
+<!--    Check if no id input-->
     <ion-text color="danger" *ngIf="form.get('id')?.hasError('required')
         && form.get('id')?.dirty
       ">
       🚨Id must required!!
     </ion-text>
+<!--    Check if id is not a Positive integer-->
     <ion-text color="danger" *ngIf="form.get('id')?.hasError('pattern')
         && form.get('id')?.dirty
       ">
       🚨Id must be a <b>integer</b> bigger than 0
     </ion-text>
+<!--    Check if id is bigger than 999999-->
     <ion-text color="danger" *ngIf="form.get('id')?.hasError('max')
         && form.get('id')?.dirty
       ">
       🚨Id can't bigger than <b>999999</b>
     </ion-text>
     <ion-item>
+<!--      Input name-->
       <ion-input
         label="Name"
         labelPlacement="stacked"
@@ -41,21 +47,25 @@
         formControlName="name"
       >
       </ion-input>
+<!--     If no input, show error -->
     </ion-item>
     <ion-text color="danger" *ngIf="form.get('name')?.hasError('required')
         && form.get('name')?.dirty
       ">
       🚨Name must required!!
     </ion-text>
+<!--    If the name is too long-->
     <ion-text color="danger" *ngIf="form.get('name')?.hasError('maxlength')
         && form.get('name')?.dirty
       ">
       🚨Name length max 20!!
     </ion-text>
     <ion-item>
+<!--  A seletion to select a category   -->
       <ion-select placeholder="Select a category" formControlName="category">
         <div slot="label">
           Category
+<!--          If no category info, aleart the user about this-->
           <ion-text color="danger" *ngIf="form.get('category')?.invalid && form.get('category')?.touched">(Required)</ion-text>
         </div>
         <ion-select-option value="Electronics">Electronics</ion-select-option>
@@ -63,6 +73,7 @@
         <ion-select-option value="Clothing">Clothing</ion-select-option>
       </ion-select>
     </ion-item>
+<!--    Input the quantity with int-->
     <ion-item>
       <ion-input
         label="Quantity"
@@ -73,21 +84,25 @@
         formControlName="quantity"
       >
       </ion-input>
+<!--      If the quantity number isn't required ,show this msg-->
     </ion-item>
     <ion-text color="danger" *ngIf="form.get('quantity')?.hasError('required')
         && form.get('quantity')?.dirty
       ">
       🚨Quantity number must required!!
     </ion-text>
+<!--    If the quantity number is bigger than 999999-->
     <ion-text color="danger" *ngIf="form.get('quantity')?.hasError('max')
         && form.get('quantity')?.dirty
       ">
       🚨Quantity can't bigger than <b>999999</b>
     </ion-text>
+<!--    This is a double check of two varieties. If the quantity of the item is 0, the stock status must be 0-->
     <ion-text color="danger" *ngIf="form.hasError('quantityZeroCheck')
       ">
       🚨Quantity must be 0 if stock status is "Out of stock"
     </ion-text>
+<!--    This is the input file for the price-->
     <ion-item>
       <ion-input
         label="Price"
@@ -98,16 +113,19 @@
         formControlName="price"
       >
       </ion-input>
+<!--      if no price input-->
     </ion-item>
     <ion-text color="danger" *ngIf="form.get('price')?.hasError('required')
         && form.get('price')?.dirty
       ">
       🚨Price must required!!
     </ion-text>
+<!--    If the price is in a wrong why: -1, 0.001-->
     <ion-text color="danger" *ngIf="form.get('price')?.hasError('pattern')
       ">
       🚨Your input price is incorrect!
     </ion-text>
+<!--    Input supplier name fiid-->
     <ion-item>
       <ion-input
         label="Supplier Name"
@@ -117,17 +135,20 @@
         formControlName="supplierName"
       >
       </ion-input>
+<!--      If no input doe the supplier name-->
     </ion-item>
     <ion-text color="danger" *ngIf="form.get('supplierName')?.hasError('required')
         && form.get('supplierName')?.dirty
       ">
       🚨Supplier name must required!!
     </ion-text>
+<!--    If input supplier name is too long-->
     <ion-text color="danger" *ngIf="form.get('supplierName')?.hasError('maxlength')
         && form.get('supplierName')?.dirty
       ">
       🚨Supplier name max length: 25
     </ion-text>
+<!--    Select for the stock status-->
     <ion-item>
       <ion-select placeholder="Stock Status" formControlName="stockStatus">
         <div slot="label">
@@ -138,11 +159,13 @@
         <ion-select-option value="Low stock">Low Stock</ion-select-option>
         <ion-select-option value="Out of stock">Out of Stock</ion-select-option>
       </ion-select>
+<!--      a double check, if the quantity number is 0, the stock status must be  -->
     </ion-item>
     <ion-text color="danger" *ngIf="form.hasError('quantityZeroCheck')
     ">
       🚨Stock status must be "Out of stock" if quantity is 0
     </ion-text>
+<!--    Checkbox for the featured item-->
     <ion-item lines="none">
       <ion-label>Featured Item</ion-label>
       <ion-checkbox
@@ -150,7 +173,7 @@
         formControlName="featuredItem"
       ></ion-checkbox>
     </ion-item>
-
+<!--   If have special note ,the toggle open, if not , closed.-->
     <ion-item>
       <ion-toggle
         [(ngModel)]="noteToggle"

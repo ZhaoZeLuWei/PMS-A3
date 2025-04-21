@@ -39,6 +39,7 @@ export class ManageItemComponent implements OnInit {
           handler: () => {
             console.log('Think clicked');
             this.deleteSuccess = false;
+            //send the delete event to the father component
             this.itemDelete.emit(this.item);
             console.log(this.deleteSuccess)
           }

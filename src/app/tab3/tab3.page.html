@@ -14,21 +14,24 @@
     </form>
   </ion-item >
   <ng-container *ngIf="searchTrigger">
-    <!-- 加载中提示 -->
+    <!-- If press the search and still loading -->
     <ion-item *ngIf="isLoading && !loadFailed">
       <ion-label>Now Loading...</ion-label>
     </ion-item>
 
-    <!-- 加载失败提示 -->
+    <!-- If there is a internet problem and can't get all info from server -->
     <ion-item *ngIf="loadFailed">
       <ion-label color="danger">Error: No internet connection. Can't get form server</ion-label>
     </ion-item>
+<!--    If can't find any item with the string input -->
     <h2 *ngIf="resultItems.length === 0 && inputform.get('itemName')?.value">
       No results found for: {{ inputform.get('itemName')?.value }}
     </h2>
+<!--    If there is no inputs-->
     <h2 *ngIf="!inputform.get('itemName')?.value">
       Please enter an item name to start!
     </h2>
+<!--    Show all results by using the ngFor with the component: app-manage-item-->
     <ng-container *ngIf="resultItems.length > 0">
       <ion-list>
         <h3>Search Result:</h3>
@@ -36,6 +39,7 @@
       </ion-list>
     </ng-container>
   </ng-container>
+<!--  Show help fab, Click to show help infos-->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="showHelp = !showHelp" >
       <ion-icon name="help-circle-outline"></ion-icon>

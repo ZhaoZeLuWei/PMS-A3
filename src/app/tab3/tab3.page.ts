@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 import {ManageItemComponent} from "../manage-item/manage-item.component";
 import {ToastController} from "@ionic/angular";
 
+//Parms to
 interface Params {
   id: number;
   name: string;
@@ -32,12 +33,14 @@ export class Tab3Page implements OnInit {
   inputform: FormGroup;
   //Checkout user is doing input to search
   searchTrigger: boolean = false;
+
   ts: ToastController = new ToastController;
   //check internet connections (runtime 10s)
   isLoading: boolean = false;
   loadFailed: boolean = false;
   loadTimeout:any;
 
+  //Dependency Injection
   constructor(
               private fb: FormBuilder, private ac:AlertController, private http:HttpClient,
               private t3Service: Tab3Service, private router: Router) {
@@ -46,6 +49,7 @@ export class Tab3Page implements OnInit {
     });
   }
 
+  //Click the search button and see all results
   async onSubmit() {
     if (this.inputform.invalid) {
       this.ac.create({
@@ -59,6 +63,7 @@ export class Tab3Page implements OnInit {
     this.onSearch();
   }
 
+
   ngOnInit() {
     this.isLoading = true;
     this.loadFailed = false;
@@ -71,10 +76,10 @@ export class Tab3Page implements OnInit {
 
     this.t3Service.getItems().subscribe({
       next: (scuData: Item[]) => {
-        //get data then clear
+        //if can't get data ,then failed loading
         clearTimeout(this.loadTimeout);
         this.isLoading = false;
-
+        //Turn get data into items
         this.items = scuData.map(
           item => this.fb.group({
             id: [item.item_id],
@@ -104,6 +109,7 @@ export class Tab3Page implements OnInit {
     })
   }
 
+  //if the user input ,then do the search from the items list, and put all related results into result list
   onSearch() {
       let searchItemName = this.inputform.get('itemName')?.value.toLowerCase();
       if (searchItemName) {
@@ -119,6 +125,7 @@ export class Tab3Page implements OnInit {
       }
   }
 
+  //the delete function.Once clicked, deleted that item both from the app and the server
   handleDelete(item: any) {
     let name = item.name;
     let id = item.id;
@@ -127,14 +134,13 @@ export class Tab3Page implements OnInit {
       console.log("Error with name");
       return;
     }
-
-    // 前端同步删除
+    // Delete from the app
     this.resultItems = this.resultItems.filter(fg => fg.get('id')?.value !== id);
     this.items = this.items.filter(fg => fg.get('id')?.value !== id);
 
-    this.onSearch(); // 更新视图
+    this.onSearch();
 
-    // 删除请求
+    // Delete from the server
     this.t3Service.deleteItem(name).subscribe({
       next: () => {
         console.log(`Item "${name}" deleted on server`);
