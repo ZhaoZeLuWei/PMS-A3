@@ -1,20 +1,20 @@
-import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab2Page } from './tab2.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+
+import { IonicModule } from '@ionic/angular';
 
 import { Tab2RoutingModule } from './tab2-routing.module';
 
+import { Tab2Page} from './tab2.page';
+
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    ExploreContainerComponentModule,
-    Tab2RoutingModule
-  ],
+   imports: [
+     CommonModule,
+     FormsModule,
+     IonicModule,
+     Tab2RoutingModule
+   ],
 })
-export class Tab2PageModule {}
+export class Tab2PageModule {} 
 

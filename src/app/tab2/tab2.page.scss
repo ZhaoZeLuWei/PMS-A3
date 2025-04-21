@@ -1,9 +1,45 @@
-/* tab2.page.scss */
-ion-header {
-    background-color: #f8f8f8;
-  }
-  
-  ion-content {
-    padding: 16px;
-  }
-  
+/* Global background with a gradient effect */
+ion-content {
+  --background: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
+}
+
+/* Card styling for featured items */
+.featured-item-card {
+  margin: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+/* Button styling */
+ion-button {
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Centering the loading spinner */
+ion-spinner {
+  display: block;
+  margin: 20px auto;
+}
+
+/* Empty state container styling */
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.no-data-image {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.no-data-message {
+  text-align: center;
+  font-size: 18px;
+  color: #9ca3af;
+}
