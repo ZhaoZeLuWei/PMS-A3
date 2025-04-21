@@ -12,4 +12,4 @@ import { HelpModalComponent } from './help-modal.component';
   exports: [HelpModalComponent]
 })
 export class HelpModalModule {}
-export class AppModule {}
+
