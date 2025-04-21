@@ -18,4 +18,8 @@ export class Tab3Service {
   deleteItem(name: string) {
     return this.http.delete(`${this.scuURL}/${name}`);
   }
+
+  updateItem(item:Item): Observable<Item> { // update an item
+    return this.http.put<Item>(this.scuURL+"/"+ item.item_name, item);
+  }
 }
